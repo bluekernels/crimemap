@@ -1,2 +1,2 @@
-db_user = 'criminal'
-db_password = 'criminal'
+db_user = 'criminer'
+db_password = 'criminer'
