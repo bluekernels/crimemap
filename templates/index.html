@@ -11,15 +11,31 @@
         var map; 
         var marker; 
         function initMap(){
-            var location = {lat: 6.4271131, lng: 3.4120424};
-            map = new google.maps.Map(document.getElementById("map-canvas"), {
-                zoom: 15, 
-                center: location 
-            });
-    
+            var mapOptions = {
+                center: new google.maps.LatLng(6.4271131, 3.4120424),
+                zoom: 15
+            }
+          
+            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
             google.maps.event.addListener(map, 'click', function(event){
                 placeMarker(event.latLng);
             });
+            
+            placeCrimes({{crimes|safe}});
+
+        }
+
+        function placeCrimes(crimes) {
+            for (i=0; i<crimes.length; i++) {
+                crime = new google.maps.Marker( {
+                position: new google.maps.LatLng(crimes[i].latitude, crimes[i].
+                longitude),
+                map: map,
+                title: crimes[i].date + "\n" +
+                crimes[i].category + "\n" + crimes[i].description
+                }
+                );
+            }
         }
 
         function placeMarker(location){
@@ -34,12 +50,13 @@
             document.getElementById('latitude').value = location.lat(); 
             document.getElementById('longitude').value = location.lng(); 
         }
-       
+
+        
     </script>
 </head>    
  <body onload="initMap()">
      <h1>CrimeMap</h1>
-     <p>A map of recent criminal activity in the Victria Island Area Lagos, Nigeria</p><br>
+     <p>A map of recent criminal activity in the Victoria Island Area Lagos, Nigeria</p><br>
      <div id="map-canvas"></div>
 
      <div id="newcrimeform">
