@@ -18,16 +18,6 @@ class DBHelper:
         finally:
             connection.close() 
 
-    def add_input(self, data): 
-        connection = self.connect() 
-        try:
-            # The following introduces a deliberate security flaw 
-            query = "INSERT INTO crimes (description) VALUES(%s);"
-            with connection.cursor() as cursor: 
-                cursor.execute(query, data)
-                connection.commit() 
-        finally:
-            connection.close() 
     
     def clear_all(self): 
         connection = self.connect() 
@@ -45,6 +35,7 @@ class DBHelper:
             query = "INSERT INTO crimes (category, date, latitude,\
                 longitude, description)\
                 VALUES (%s, %s, %s, %s, %s)"
+
             with connection.cursor() as cursor: 
                 cursor.execute(query, (category,date, latitude, longitude, description))
                 connection.commit() 
